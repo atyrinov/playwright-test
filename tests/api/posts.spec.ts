@@ -47,7 +47,7 @@ test.describe("JSONPlaceholder: API з контролером і білдеро�
     });
 
     // DELETE /posts/1
-    await test.step("Видалити пост з id=1", async () => {
+    await test.step("Delete post with id=1", async () => {
       const r = await api.deletePost(1);
       expect(r.status(), "Статус DELETE /posts/1").toBe(200);
     });
