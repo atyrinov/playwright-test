@@ -8,15 +8,18 @@ export class PostBuilder {
   };
 
   title(value: PostRequest["title"]) {
-    this.data.title = value; return this;
+    this.data.title = value;
+    return this;
   }
 
   body(value: PostRequest["body"]) {
-    this.data.body = value; return this;
+    this.data.body = value;
+    return this;
   }
 
   userId(value: PostRequest["userId"]) {
-    this.data.userId = value; return this;
+    this.data.userId = value;
+    return this;
   }
 
   build(): PostRequest {

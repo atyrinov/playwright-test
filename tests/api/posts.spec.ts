@@ -3,30 +3,28 @@ import { ApiController } from "../../controllers/apiController";
 import { PostBuilder } from "../../builders/PostBuilder";
 import type { PostRequest, PostResponse } from "../../types/Post";
 
-test.describe("JSONPlaceholder: API з контролером і білдером (інтерфейс)", () => {
-  test("GET → POST → DELETE", async ({ request }) => {
+test.describe("JSONPlaceholder", () => {
+  test("Get-Post-Delete", async ({ request }) => {
     const api = new ApiController(request);
 
     // GET /posts
     await test.step("Get list posts", async () => {
-      const r = await api.getPosts();
-      expect(r.status(), "Status").toBe(200);
+      const res = await api.getPosts();
+      expect(res.status(), "Status").toBe(200);
 
-      const posts = (await r.json()) as PostResponse[];
+      const posts = (await res.json()) as PostResponse[];
       expect(Array.isArray(posts)).toBe(true);
       expect(posts.length).toBeGreaterThan(0);
 
       const first = posts[0];
 
-      expect(first).toMatchObject({
-        userId: expect.any(Number),
-        id: expect.any(Number),
-        title: expect.any(String),
-        body: expect.any(String),
-      });
+      expect(typeof first.userId).toBe("number");
+      expect(typeof first.id).toBe("number");
+      expect(typeof first.title).toBe("string");
+      expect(typeof first.body).toBe("string");
     });
 
-    // POST /posts
+    // POST 
     await test.step("Create new post", async () => {
       const payload: PostRequest = new PostBuilder()
         .title("QA Automation Post")
@@ -34,10 +32,10 @@ test.describe("JSONPlaceholder: API з контролером і білдеро�
         .userId(777)
         .build();
 
-      const r = await api.createPost(payload);
-      expect(r.status(), "Status").toBe(201);
+      const res = await api.createPost(payload);
+      expect(res.status(), "Status").toBe(201);
 
-      const created = (await r.json()) as PostResponse;
+      const created = (await res.json()) as PostResponse;
       expect(created).toMatchObject({
         title: payload.title,
         body: payload.body,

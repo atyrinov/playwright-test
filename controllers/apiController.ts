@@ -1,9 +1,10 @@
 import { APIRequestContext } from "@playwright/test";
 import { BaseApi } from "./BaseApi";
+import { api_base_url } from '../config/appConfig';
 
 export class ApiController extends BaseApi {
   constructor(request: APIRequestContext) {
-    super(request, "https://jsonplaceholder.typicode.com");
+    super(request, api_base_url);
   }
 
   getPosts() {

@@ -11,8 +11,8 @@ export class TodoMvcPage extends BasePage {
     this.todoItems = this.page.locator(".todo-list li");
   }
 
-  async open(): Promise<void> {
-    await this.navigateUrl("https://demo.playwright.dev/todomvc");
+  async open(path: string = '/todomvc'): Promise<void> {
+    await this.navigateUrl(path);
     await this.waitForPageLoad();
   }
 
